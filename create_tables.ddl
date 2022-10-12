@@ -112,6 +112,7 @@ create table PLANO (
 
 create table TRANSACIONA (
      ID serial not null,
+     DATA date not null,
      TIPO char(1) not null,
      QUANTIDADE numeric(10,2) not null,
      PRECO numeric(10,2) not null,
@@ -229,6 +230,8 @@ alter table TRANSACIONA add constraint FKTRA_ATI
      foreign key (ISIN_ATIVO)
      references ATIVO;
 
+alter table TRANSACIONA add constraint IS_IN_TRA_TIPO
+     CHECK (TIPO IN ('C', 'V'));
 
 -- Index Section
 -- _____________ 
