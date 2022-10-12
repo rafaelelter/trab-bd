@@ -7,8 +7,8 @@ SELECT
 FROM estoques
 JOIN usuario ON estoques.ID_USUARIO = usuario.ID
 JOIN acao ON estoques.ISIN_ATIVO = acao.ISIN_ATIVO
-GROUP BY SETOR
-WHERE usuario.email = 'algum@email.com';
+WHERE usuario.email = 'soconnor@example.com'
+GROUP BY SETOR;
 
 -- Seleciona o nome de empresas e a quantidade de índices em que elas estão
 -- filtrando apenas por empresas que estão em mais de um índice
