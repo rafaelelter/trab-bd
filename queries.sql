@@ -34,26 +34,26 @@ FROM ATIVO
 JOIN TRANSACIONA ON ATIVO.ISIN = TRANSACIONA.ISIN_ATIVO
 WHERE ATIVO.ISIN IN (
     SELECT 
-        ISIN_ATIVO,
+        ISIN_ATIVO
     FROM HISTORICO_ATIVOS
     GROUP BY ISIN_ATIVO
-    HAVING AVG(VOLUME) < 1000000
+    HAVING AVG(VOLUME) < 450000
 );
 
 
 -- Seleciona o resultado do estoque dos clientes em um determinado dia, para cada ativo
 SELECT
     id_usuario,
-    isin_ativo,
+    estoques.isin_ativo,
     quantidade * preco_medio * variacao AS resultado
 FROM estoques
 JOIN (
     SELECT 
-        ISIN_ATIVO,
+        D0.ISIN_ATIVO,
         (D0.CLOSE / D1.CLOSE) - 1 AS VARIACAO
     FROM HISTORICO_ATIVOS AS D0
     JOIN HISTORICO_ATIVOS AS D1 ON D0.ISIN_ATIVO = D1.ISIN_ATIVO AND D0.DATA = D1.DATA - 1
-    WHERE DATA = '2020-01-01'
+    WHERE D0.DATA = '2020-01-01'
 ) AS VARIACAO ON estoques.ISIN_ATIVO = VARIACAO.ISIN_ATIVO;
 
 
