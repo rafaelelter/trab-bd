@@ -17,6 +17,13 @@ Dentro do psql
 \i create_views.sql
 ```
 
+### Importar dados do pg_dump
+2. Rodar os comandos no terminal
+```
+psql -d newdb -f db.sql
+```
+
+### Importar dados aleatórios novamente
 2. Criar um arquivo .env com base no arquivo .env.dummy
 Atualizar as variáveis para a sua configuração do PostgreSQL.
 
