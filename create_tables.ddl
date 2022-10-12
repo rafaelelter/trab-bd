@@ -36,9 +36,9 @@ create table ATIVO (
 
 create table COMPOSTO_POR (
      ISIN_ATIVO char(12) not null,
-     ISIN_ETF char(12) not null,
+     ID_INDICE INTEGER not null,
      PORCENTAGEM numeric(3) not null,
-     constraint IDCOMPOSTO_POR primary key (ISIN_ATIVO, ISIN_ETF));
+     constraint IDCOMPOSTO_POR primary key (ISIN_ATIVO, ID_INDICE));
 
 create table COMPRA (
      ID serial not null,
@@ -54,10 +54,10 @@ create table EMPRESA (
      NOME varchar(80) not null,
      constraint IDEMPRESA_ID primary key (CNPJ));
 
-create table ETF (
-     ISIN_ATIVO char(12) not null,
-     ID_INDICE integer,
-     constraint FKFUN_ETF_ID primary key (ISIN_ATIVO));
+-- create table ETF (
+--      ISIN_ATIVO char(12) not null,
+--      ID_INDICE integer,
+--      constraint FKFUN_ETF_ID primary key (ISIN_ATIVO));
 
 create table EVENTO (
      ID serial not null,
@@ -159,8 +159,8 @@ alter table COMPOSTO_POR add constraint FKCOM_ATI
      references ATIVO;
 
 alter table COMPOSTO_POR add constraint FKR
-     foreign key (ISIN_ETF)
-     references ETF;
+     foreign key (ID_INDICE)
+     references INDICE;
 
 alter table COMPRA add constraint FKCOM_PLA
      foreign key (ID_PLANO)
@@ -180,18 +180,18 @@ alter table COMPRA add constraint FKCOM_USU
 --     check(exists(select * from ATIVO
 --                  where ATIVO.ID_EMPRESA = ID)); 
 
-alter table ETF add constraint FKEMULA
-     foreign key (ID_INDICE)
-     references INDICE;
+-- alter table ETF add constraint FKEMULA
+--      foreign key (ID_INDICE)
+--      references INDICE;
 
 --Not implemented
 -- alter table ETF add constraint FKFUN_ETF_CHK
 --     check(exists(select * from COMPOSTO_POR
 --                  where COMPOSTO_POR.ISIN_ETF = ISIN_ATIVO)); 
 
-alter table ETF add constraint FKFUN_ETF_FK
-     foreign key (ISIN_ATIVO)
-     references FUNDO;
+-- alter table ETF add constraint FKFUN_ETF_FK
+--      foreign key (ISIN_ATIVO)
+--      references FUNDO;
 
 alter table EVENTO add constraint FKOCORREM
      foreign key (ISIN)
